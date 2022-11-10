@@ -68,9 +68,24 @@ function exibeBD() {
                     item = resultados.rows.item(i);
                     document.getElementById(
                         "lista-bd"
-                    ).innerHTML += `<p>Nome: ${item.nome}, ${item.idade} anos</p>`;
+                    ).innerHTML += `<p onclick="mostrarCartaoAltera('${item.nome}', ${item.idade})">Nome: ${item.nome}, ${item.idade} anos</p>`;
                 }
             }
         );
     });
+}
+
+function alteraInfo() {
+    const novoNome = document.getElementById("nome-alteracao").value;
+    const novaIdade = parseInt(
+        document.getElementById("idade-alteracao").value
+    );
+
+    bd.transaction(function (altera) {
+        altera.executeSql(
+            `UPDATE formulario SET nome="${novoNome}", idade=${novaIdade} WHERE nome="${nomeAtualParaEditar}" AND idade=${idadeAtualParaEditar}`
+        ); 
+    });
+
+    exibeBD();
 }
