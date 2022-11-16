@@ -37,7 +37,6 @@ function salvarInfo() {
         alert("Faltam informações!");
         return false;
     }
-
     bd.transaction(function (inserir) {
         inserir.executeSql(
             "INSERT INTO formulario (nome, idade, altura, dataNasc, contatos) VALUES (?, ?, ?, ?, ?)",
